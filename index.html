@@ -2,38 +2,75 @@
 <html lang="en" ng>
 
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+		<link href='https://fonts.googleapis.com/css?family=Jura:600' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Amaranth:700' rel='stylesheet' type='text/css'>
 
 	</head>
 
 	<body>
-		  <div class="circle">
-		  		Test
+		  <div id="topLine">
+		  <div class="circle circleTop" >
+		  		<span class="circleText">Blog</span>
 		  </div>
-		  <div class="circle">
-		  		Test
 		  </div>
-		  <div class="circle">
-		  		Test
+		  <div id="centerLine">
+		  <div class="circle circleLeft">
+		  		<span class="circleText">Work</span>
 		  </div>
-		  <div class="circle">
-		  		Test
+		  <div class="circle circleCenter">
+		  		<span class="circleText">Me</span>
 		  </div>
-		  <div class="circle">
-		  		Test
+
+		  <div class="circle circleRight">
+		  		<span class="circleText">Social</span>
 		  </div>
+		  </div>
+		  <div id="bottomLine">
+  		  <div class="circle circleBottom">
+		  		<span class="circleText">About</span>
+		  </div>
+		  </div>
+		  
 	</body>
 	
 	<style type="text/css">
 
 		.circle {
+			text-align: center;
+			font-family: 'Amaranth', sans-serif;
+			font-weight: bold;
 		    border-radius: 50%;
-  			width: 10vw;
-  			height: 10vw;
+  			width: 14vw;
+  			height: 14vw;
   			background: green;
-  			font-size: 5vw;
-  			display:inline-block;
+  			font-size: 4vw;
 		}
+		.circleText{
+			position: relative;
+			top:5vw;
+		}
+		.circleTop,.circleBottom{
+			margin:0 auto;
+		}
+		#centerLine{
+			margin-top:8vh;
+			margin-bottom:8vh;
+			position: relative;
+			display: flex;
+		}
+		.circleLeft,.circleRight,.circleCenter{
+			position: relative;
+			display: inline-block;
+			margin:0 auto;
 
+		}
+		/*.circleRight::after{
+			content: ".";
+		    visibility: hidden; 
+   			display: block; 
+   			height: 0; 
+   			clear: both;
+		}*/
 	</style>
 </html>
