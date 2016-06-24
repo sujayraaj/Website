@@ -10,33 +10,32 @@
 
 	<body>
 		  <div id="topLine">
-		  <div class="circle circleTop" id="Blog" onclick="Animate_it();" >
+		  <div class="circle circleTop" id="Blog" onclick="Animate_it();moveFrameBlog();" >
 		  		<span class="circleText">Blog</span>
 		  </div>
 		  </div>
 		  <div id="centerLine">
 		  <div class="circle circleLeft" id="Work" onclick="Animate_it();" onmouseover="workMenuIn();" onmouseout="workMenuOut();">
-		  		<span class="circleText">Work</span>
+		  <span class="circleText">Work</span>
 		  		<div id="workMenu">
-		  		<span class="circleText ">Code</span>
-		  		<span class="circleText ">Art</span>
+		 		<span class="circleText " onclick="moveFrameCode();">Code</span>
+		 				<span class="circleText " onclick="moveFrameArt();">Art</span>
 		  		</div>
 		  </div>
-		  <div id="Me" class="circle circleCenter" onclick="Animate_it();">
+		  <div id="Me" class="circle circleCenter" onclick="Animate_it();if(state>1){moveFrameMe();}">
 		  		<span class="circleText">Me</span>
 		  </div>
-
-		  <div id="Social" class="circle circleRight" onclick="Animate_it();">
+		 <div id="Social" class="circle circleRight" onclick="Animate_it();moveFrameSocial();">
 		  		<span class="circleText">Social</span>
 		  </div>
 		  </div>
 		  <div id="bottomLine">
-  		  <div id="About" class="circle circleBottom" onclick="Animate_it();">
+  		 <div id="About" class="circle circleBottom" onclick="Animate_it();moveFrameAbout();">
 		  		<span class="circleText">About</span>
 		  </div>
 		  </div>
 		  <div id="contentDiv">
-		 	<iframe></iframe>
+		 	<iframe id="contentFrame"></iframe>
 		  </div>
 		  
 	</body>
@@ -47,6 +46,15 @@
 			background: #2ECC71;
 			margin:0;
 		}
+
+@keyframes jump {
+   			 0%   {transform:translateY(0);}
+    			50% { transform:translateY(1vh);}
+   				 100% {transform:translateY(0);}
+    		 	}
+
+
+		
 		.circle {
 			text-align: center;
 			font-family: 'Amaranth', sans-serif;
@@ -59,19 +67,32 @@
   			position: fixed;
 			display: inline-block;
 			margin:0 auto;
-			top:40vh;
+			top:40vh; 
 			left:45vw;
-			padding-top:5vw;
+ 			padding-top:5vw;
 			color:white;
 			z-index: 1;
+			 user-select: none; 
+				}
+		#Me{
+			z-index: 2;
+		}
+		#About{
+		}
+		#Social{
+
+		}
+		#Work{
 		}
 		#workMenu{
 			display:none;
 		}
-		 /* .circleText{
-			color:white;
-			
-		} */ 
+		  .circleText{
+			 -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */ 
+		} 
 		#workMenu{
 		background: #27AE60;
 			width:14vw;
@@ -97,12 +118,20 @@
 		#contentDiv{
 			position:fixed;
 			z-index:0;
-			top: 10vw;
+			top: 8vw;
 			left:9vw;
 
 			width:80vw;
 			height:80vh;
 		}
+		
+		#contentFrame{
+			width:80vw;
+			height:0vh;
+			opacity:0;
+		}
+		
+		
 	</style>
 	<script type="text/javascript">
 			var elem = {"Me":"translate(-5vw,-5vw)",
@@ -111,9 +140,11 @@
 						"Work":"translate(-25vw,15vw)",
 						"Blog":"translate(-25vw,-20vw)"};
 			var trans = 'transform 0.4s';
-			state=0;
-
+			var state=0;
+			var contentState=0;
+			var conFr=document.getElementById('contentFrame');
 			function Animate_it() {
+				console.log(state);
 				if(state==0){
 				var ele;
 				for (var i in elem) {
@@ -156,6 +187,45 @@
 					ele.style.display='none';
 				}
 				}
+			function moveFrame(fr){
+				if(contentState==0){
+					fr.style.opacity='1';
+					fr.style.height='80vh';
+					fr.style.transition='opacity 1s,height 0.4s';
+					contentState=1;
+				}
+			}
+			function moveFrameBlog(){
+				console.log(contentState);
+				if(conFr.src!="Blog.html"){
+				moveFrame(conFr);
+				conFr.src="Blog.html";	
+				}
+			}
+			function moveFrameAbout(){
+				if(conFr.src!="About.html"){
+					moveFrame(conFr);
+					conFr.src="About.html";	
+					}
+			}
+			function moveFrameMe(){
+				if(conFr.src!="Me.html"){
+					moveFrame(conFr);
+					conFr.src="Me.html";	
+					}
+			}
+			function moveFrameCode(){
+				if(conFr.src!="Code.html"){
+					moveFrame(conFr);
+					conFr.src="Code.html";	
+					}
+			}
+			function moveFrameArt(){
+				if(conFr.src!="Art.html"){
+					moveFrame(conFr);
+					conFr.src="Art.html";	
+					}
+			}
 			
 		</script>
 	
