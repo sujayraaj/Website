@@ -1,68 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" ng>
+<html lang="en">
 
 	<head>
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
 		<link href='https://fonts.googleapis.com/css?family=Jura:600' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Amaranth:700' rel='stylesheet' type='text/css'>
 
-		<script type="text/javascript">
-			var posAnime = {"Me":"translate(-5vw,-5vw)",
-						"About":"translate(15vw,10vw)",
-						"Social":"translate(25vw,-15vw)",
-						"Work":"translate(-25vw,15vw)",
-						"Blog":"translate(-25vw,-20vw)"};
-			var posDef = {"Me":"translate(5vw,5vw)",
-						"About":"translate(-15vw,-10vw)",
-						"Social":"translate(-25vw,15vw)",
-						"Work":"translate(25vw,-15vw)",
-						"Blog":"translate(25vw,20vw)"};
-			var trans = 'transform 0.4s';
-			var state = false;
-
-			function Animate_it() {
-				var col=document.querySelectorAll(".circle");
-				
-				if(!state){	
-				for (var i = col.length - 1; i >= 0; i--) {
-					var attr = col[i].attributes;
-					col[i].style.transform=posAnime[attr[0]];
-					col[i].style.transition = trans;
-					
-				}
-			}
-				else{
-				for (var i = col.length - 1; i >= 0; i--) {
-					col[i].style.transform=posDef[col[i].attributes[0]];
-					col[i].style.transition = trans;
-				}
-				}
-			}
-		</script>
-	</head>
+			</head>
 
 	<body>
 		  <div id="topLine">
-		  <div class="circle circleTop" id="Blog" >
+		  <div class="circle circleTop" id="Blog" onclick="Animate_it();" >
 		  		<span class="circleText">Blog</span>
 		  </div>
 		  </div>
 		  <div id="centerLine">
-		  <div class="circle circleLeft" id="Work">
+		  <div class="circle circleLeft" id="Work" onclick="Animate_it();" onmouseover="workMenuIn();" onmouseout="workMenuOut();">
 		  		<span class="circleText">Work</span>
+		  		<div id="workMenu">
+		  		<span class="circleText ">Code</span>
+		  		<span class="circleText ">Art</span>
+		  		</div>
 		  </div>
 		  <div id="Me" class="circle circleCenter" onclick="Animate_it();">
 		  		<span class="circleText">Me</span>
 		  </div>
 
-		  <div id="Social" class="circle circleRight">
+		  <div id="Social" class="circle circleRight" onclick="Animate_it();">
 		  		<span class="circleText">Social</span>
 		  </div>
 		  </div>
 		  <div id="bottomLine">
-  		  <div id="About" class="circle circleBottom">
+  		  <div id="About" class="circle circleBottom" onclick="Animate_it();">
 		  		<span class="circleText">About</span>
 		  </div>
+		  </div>
+		  <div id="contentDiv">
+		 	<iframe></iframe>
 		  </div>
 		  
 	</body>
@@ -79,7 +53,7 @@
 			font-weight: bold;
 		    border-radius: 50%;
   			width: 14vw;
-  			height: 14vw;
+  			height: 9vw;
   			background: #27AE60;
   			font-size: 4vw;
   			position: fixed;
@@ -87,11 +61,21 @@
 			margin:0 auto;
 			top:40vh;
 			left:45vw;
-		}
-		.circleText{
+			padding-top:5vw;
 			color:white;
-			position: relative;
-			top:5vw;
+			z-index: 1;
+		}
+		#workMenu{
+			display:none;
+		}
+		 /* .circleText{
+			color:white;
+			
+		} */ 
+		#workMenu{
+		background: #27AE60;
+			width:14vw;
+			height: 10vw;
 		}
 		#centerLine{
 			margin-top:8vh;
@@ -109,5 +93,70 @@
    			height: 0; 
    			clear: both;
 		}*/
+		
+		#contentDiv{
+			position:fixed;
+			z-index:0;
+			top: 10vw;
+			left:9vw;
+
+			width:80vw;
+			height:80vh;
+		}
 	</style>
+	<script type="text/javascript">
+			var elem = {"Me":"translate(-5vw,-5vw)",
+						"About":"translate(15vw,10vw)",
+						"Social":"translate(25vw,-15vw)",
+						"Work":"translate(-25vw,15vw)",
+						"Blog":"translate(-25vw,-20vw)"};
+			var trans = 'transform 0.4s';
+			state=0;
+
+			function Animate_it() {
+				if(state==0){
+				var ele;
+				for (var i in elem) {
+					ele=document.getElementById(i);
+					ele.style.transform=elem[i];
+					ele.style.transition = trans; 
+				}
+			}
+				else if(state==1)
+					{
+					var leftval=0;
+					var eleWid=14;
+					var font_size=4;
+					var top_pad=1;
+					for (var i in elem) {
+						ele=document.getElementById(i);
+						ele.style.transform='initial';
+						ele.style.top='0';
+						ele.style.left=(leftval+eleWid).toString()+'vw';
+						leftval=leftval+eleWid;
+						ele.style.borderRadius='0';
+						ele.style.paddingTop='0';
+						ele.style.height=(+font_size+(+top_pad))+'vw';
+				    	ele.style.transition = 'transform 0.4s,top 0.4s,left 0.4s,border-radius 0.4s,padding-top 0.4s';
+					}
+					
+					}
+				state++;
+			}
+			
+			function workMenuIn(){
+				if(state>=2){
+				ele=document.getElementById('workMenu');
+				ele.style.display='block';
+			}
+			}
+			function workMenuOut(){
+				if(state>=2){
+					ele=document.getElementById('workMenu');
+					ele.style.display='none';
+				}
+				}
+			
+		</script>
+	
 </html>
